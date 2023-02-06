@@ -1,0 +1,23 @@
+D:\Studying\Step\Semester 3\WPF\MP3 Player\MP3 Player\bin\Debug\net7.0-windows\MP3 Player.exe
+D:\Studying\Step\Semester 3\WPF\MP3 Player\MP3 Player\bin\Debug\net7.0-windows\MP3 Player.deps.json
+D:\Studying\Step\Semester 3\WPF\MP3 Player\MP3 Player\bin\Debug\net7.0-windows\MP3 Player.runtimeconfig.json
+D:\Studying\Step\Semester 3\WPF\MP3 Player\MP3 Player\bin\Debug\net7.0-windows\MP3 Player.dll
+D:\Studying\Step\Semester 3\WPF\MP3 Player\MP3 Player\bin\Debug\net7.0-windows\MP3 Player.pdb
+D:\Studying\Step\Semester 3\WPF\MP3 Player\MP3 Player\obj\Debug\net7.0-windows\MP3 Player.csproj.AssemblyReference.cache
+D:\Studying\Step\Semester 3\WPF\MP3 Player\MP3 Player\obj\Debug\net7.0-windows\MainWindow.g.cs
+D:\Studying\Step\Semester 3\WPF\MP3 Player\MP3 Player\obj\Debug\net7.0-windows\App.g.cs
+D:\Studying\Step\Semester 3\WPF\MP3 Player\MP3 Player\obj\Debug\net7.0-windows\MP3 Player_MarkupCompile.cache
+D:\Studying\Step\Semester 3\WPF\MP3 Player\MP3 Player\obj\Debug\net7.0-windows\MP3 Player_MarkupCompile.lref
+D:\Studying\Step\Semester 3\WPF\MP3 Player\MP3 Player\obj\Debug\net7.0-windows\MainWindow.baml
+D:\Studying\Step\Semester 3\WPF\MP3 Player\MP3 Player\obj\Debug\net7.0-windows\MP3 Player.g.resources
+D:\Studying\Step\Semester 3\WPF\MP3 Player\MP3 Player\obj\Debug\net7.0-windows\MP3 Player.GeneratedMSBuildEditorConfig.editorconfig
+D:\Studying\Step\Semester 3\WPF\MP3 Player\MP3 Player\obj\Debug\net7.0-windows\MP3 Player.AssemblyInfoInputs.cache
+D:\Studying\Step\Semester 3\WPF\MP3 Player\MP3 Player\obj\Debug\net7.0-windows\MP3 Player.AssemblyInfo.cs
+D:\Studying\Step\Semester 3\WPF\MP3 Player\MP3 Player\obj\Debug\net7.0-windows\MP3 Player.csproj.CoreCompileInputs.cache
+D:\Studying\Step\Semester 3\WPF\MP3 Player\MP3 Player\obj\Debug\net7.0-windows\MP3 Player.dll
+D:\Studying\Step\Semester 3\WPF\MP3 Player\MP3 Player\obj\Debug\net7.0-windows\refint\MP3 Player.dll
+D:\Studying\Step\Semester 3\WPF\MP3 Player\MP3 Player\obj\Debug\net7.0-windows\MP3 Player.pdb
+D:\Studying\Step\Semester 3\WPF\MP3 Player\MP3 Player\obj\Debug\net7.0-windows\MP3 Player.genruntimeconfig.cache
+D:\Studying\Step\Semester 3\WPF\MP3 Player\MP3 Player\obj\Debug\net7.0-windows\ref\MP3 Player.dll
+D:\Studying\Step\Semester 3\WPF\MP3 Player\MP3 Player\obj\Debug\net7.0-windows\Interop.WMPLib.dll
+D:\Studying\Step\Semester 3\WPF\MP3 Player\MP3 Player\obj\Debug\net7.0-windows\MP3 Player.csproj.ResolveComReference.cache
