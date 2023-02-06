@@ -5,14 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MP3_Player"
         mc:Ignorable="d"
-        Title="Player" Height="450" Width="800">
+        Title="Player" Height="450" Width="800" MinHeight="450" MinWidth="800" MaxHeight="450" MaxWidth="800">
     <Grid Background="#FF323232">
-        <ListBox x:Name="lbList" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,30,10,106" Background="#FF646464" Foreground="White" MouseDoubleClick="lbList_MouseDoubleClick"/>
-        <StackPanel Margin="0,333,0,0" Background="#FF4B4B4B">
+        <ListBox x:Name="lbList" d:ItemsSource="{d:SampleData ItemCount=3}" Margin="215,30,10,106" Background="#FF191919" Foreground="White" MouseDoubleClick="lbList_MouseDoubleClick"/>
+        <ListBox x:Name="lbPlaylist" d:ItemsSource="{d:SampleData ItemCount=3}" Margin="10,30,590,106" Background="#FF191919" Foreground="White" MouseDoubleClick="lbPlaylist_MouseDoubleClick"/>
+        <StackPanel Margin="0,333,0,0" Background="#FF323232">
             <Grid Height="21">
                 <Slider x:Name="slTime" Margin="60,2,60,0" Thumb.DragCompleted="slTime_DragCompleted" Thumb.DragStarted="slTime_DragStarted" />
-                <Label x:Name="lblTime" Content="00:00" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="White" FontSize="10"/>
-                <Label x:Name="lblMaxTime" Content="00:00" HorizontalAlignment="Right" Margin="736,0,0,0" VerticalAlignment="Center" Foreground="White" FontSize="10"/>
+                <Label x:Name="lblTime" Content="00:00" HorizontalAlignment="Left" Margin="21,0,0,0" VerticalAlignment="Center" Foreground="White" FontSize="10"/>
+                <Label x:Name="lblMaxTime" Content="00:00" Margin="745,0,0,0" VerticalAlignment="Center" Foreground="White" FontSize="10" HorizontalAlignment="Left" Width="34"/>
             </Grid>
             <Grid Height="40" Width="550">
                 <Button x:Name="btnPlay" Content="Play" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="52" Foreground="White" FontWeight="Bold" FontSize="18" Click="btnPlay_Click">
@@ -21,7 +22,7 @@
                     </Button.Background>
                 </Button>
                 <Button x:Name="btnNext" Content="Next" HorizontalAlignment="Left" Margin="301,0,0,0" VerticalAlignment="Center" Height="20" Width="55" Background="{x:Null}" Foreground="White" FontWeight="Bold" Click="btnNext_Click"/>
-                <Button x:Name="btnMute" Content="Mute" HorizontalAlignment="Left" Margin="361,0,0,0" VerticalAlignment="Center" Height="20" Width="55" Background="{x:Null}" Foreground="White" FontWeight="Bold" Click="btnMute_Click"/>
+                <Button x:Name="btnMute" Content="Mute" HorizontalAlignment="Left" Margin="361,0,0,0" VerticalAlignment="Center" Height="20" Width="55" Background="#FF646464" Foreground="White" FontWeight="Bold" Click="btnMute_Click"/>
                 <Button x:Name="btnPrev" Content="Previous" HorizontalAlignment="Left" Margin="194,0,0,0" VerticalAlignment="Center" Height="20" Width="55" Background="{x:Null}" Foreground="White" FontWeight="Bold" Click="btnPrev_Click"/>
                 <Slider x:Name="slVolume" HorizontalAlignment="Left" Margin="420,0,0,0" VerticalAlignment="Center" Width="120" Value="50" Maximum="100" ValueChanged="slVolume_ValueChanged"/>
                 <Button x:Name="btnStop" Content="Stop" HorizontalAlignment="Left" Margin="134,0,0,0" VerticalAlignment="Center" Height="20" Width="55" Background="{x:Null}" Foreground="White" FontWeight="Bold" Click="btnStop_Click"/>
@@ -29,7 +30,9 @@
                 <Button x:Name="btnRandom" Content="Random" HorizontalAlignment="Left" Margin="14,0,0,0" VerticalAlignment="Center" Height="20" Width="55" Background="#FF646464" Foreground="White" FontWeight="Bold" Click="btnRandom_Click"/>
             </Grid>
         </StackPanel>
-        <Menu Background="#FF4B4B4B" VerticalAlignment="Top">
+        <Menu Background="#FF323232" VerticalAlignment="Top">
+            <Button x:Name="btnAddPlaylist" Background="{x:Null}" Content="Add Playlist" Foreground="White" FontWeight="Bold" FontSize="14" Click="btnAddPlaylist_Click"/>
+            <Button x:Name="btnDelPlaylist" Background="{x:Null}" Content="Delete Playlist" Foreground="White" FontWeight="Bold" FontSize="14" Click="btnDelPlaylist_Click"/>
             <Button x:Name="btnAddFile" Background="{x:Null}" Content="Add File" Foreground="White" FontWeight="Bold" FontSize="14" Click="btnAddFile_Click"/>
             <Button x:Name="btnDelFile" Background="{x:Null}" Content="Delete File" Foreground="White" FontWeight="Bold" FontSize="14" Click="btnDelFile_Click"/>
         </Menu>

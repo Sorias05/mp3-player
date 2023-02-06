@@ -42,37 +42,51 @@ namespace MP3_Player
         Random rand = new Random();
         int volume = 0;
         double position = 0;
+        int activeSongIndex = 0;
+        int activePlaylistIndex = 0;
 
         public MainWindow()
         {
             InitializeComponent();
-            loadFiles("Music", "*.mp3");
+            LoadPlaylists("Music/");
+
             btnRandom.Background.Opacity = 0;
             btnRepeat.Background.Opacity = 0;
+            btnMute.Background.Opacity = 0;
         }
 
         public void loadFiles(string folder, string fileType)
         {
             DirectoryInfo dinfo = new DirectoryInfo(folder);
             FileInfo[] Files = dinfo.GetFiles(fileType);
+            lbList.Items.Clear();
             foreach (FileInfo file in Files)
-            {
                 lbList.Items.Add(file.Name);
-            }
+        }
+
+        private void LoadPlaylists(string info)
+        {
+            DirectoryInfo di = new DirectoryInfo(info);
+            DirectoryInfo[] diArr = di.GetDirectories();
+            lbPlaylist.Items.Clear();
+            foreach (DirectoryInfo dri in diArr)
+                lbPlaylist.Items.Add(dri.Name);
         }
 
         private void btnAddFile_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.InitialDirectory = "c:\\";
-            dlg.Filter = "Audio files (*.MP3)|*.MP3;|All Files (*.*)|*.*";
-            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if(lbPlaylist.SelectedItem != null)
             {
-                string source = System.IO.Path.GetFileName(dlg.FileName);
-                string filePath = dlg.FileName;
-                string destFile = System.IO.Path.Combine("Music", source);
-                System.IO.File.Copy(filePath, destFile, true);
-                lbList.Items.Add(source);
+                OpenFileDialog dlg = new OpenFileDialog();
+                dlg.Filter = "Audio files (*.MP3)|*.MP3;|All Files (*.*)|*.*";
+                if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    string source = System.IO.Path.GetFileName(dlg.FileName);
+                    string filePath = dlg.FileName;
+                    string destFile = System.IO.Path.Combine($"Music/{lbPlaylist.SelectedItem.ToString()}", source);
+                    System.IO.File.Copy(filePath, destFile, true);
+                    lbList.Items.Add(source);
+                }
             }
         }
 
@@ -85,17 +99,20 @@ namespace MP3_Player
         {
             if (!isPlaying)
             {
-                player.URL = "Music/" + lbList.SelectedItem.ToString();
-                player.controls.play();
-                btnPlay.Content = "Pause";
-                isPlaying = true;
+                player.URL = $"Music/{lbPlaylist.SelectedItem.ToString()}/{lbList.SelectedItem.ToString()}";
                 player.settings.volume = (int)slVolume.Value;
+                player.controls.play();
                 slTime.Maximum = player.currentMedia.duration;
                 lblMaxTime.Content = player.currentMedia.durationString;
                 player.controls.currentPosition = position;
+                
+                activeSongIndex = lbList.SelectedIndex;
+                btnPlay.Content = "Pause";
+                isPlaying = true;
                 ticks.Interval = TimeSpan.FromMilliseconds(1);
                 ticks.Tick += ticks_Tick;
                 tick = new timerTick(Timer_Tick);
+                System.Threading.Thread.Sleep(100);
                 ticks.Start();
             }
             else
@@ -132,12 +149,13 @@ namespace MP3_Player
 
         private void btnDelFile_Click(object sender, RoutedEventArgs e)
         {
-            if(player.URL == "Music/" + lbList.SelectedItem.ToString())
+            if (System.Windows.Forms.MessageBox.Show("Are you sure?", $"Delete {lbList.SelectedItem.ToString()}", System.Windows.Forms.MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
             {
-                playerStop();
+                if (player.URL == $"Music/{lbPlaylist.SelectedItem.ToString()}/{lbList.SelectedItem.ToString()}")
+                    playerStop();
+                System.IO.File.Delete($"Music/{lbPlaylist.SelectedItem.ToString()}/{lbList.SelectedItem.ToString()}");
+                lbList.Items.Remove(lbList.SelectedItem);
             }
-            System.IO.File.Delete("Music/" + lbList.SelectedItem.ToString());
-            lbList.Items.Remove(lbList.SelectedItem);
         }
 
         private void Timer_Tick()
@@ -184,6 +202,7 @@ namespace MP3_Player
             {
                 isPlaying = false;
                 position = 0;
+                ticks.Stop();
                 playerPlay();
             }
         }
@@ -209,12 +228,7 @@ namespace MP3_Player
         {
             playerStop();
             if (isRandom)
-            {
-                int random = -1;
-                while (lbList.SelectedIndex == random)
-                    random = rand.Next(lbList.Items.Count);
-                lbList.SelectedIndex = rand.Next(lbList.Items.Count);
-            }
+                lbList.SelectedIndex = activeSongIndex;
             else if (lbList.SelectedIndex > 0)
                 lbList.SelectedIndex = lbList.SelectedIndex - 1;
             playerPlay();
@@ -226,6 +240,7 @@ namespace MP3_Player
             {
                 slVolume.Value = volume;
                 btnMute.Content = "Mute";
+                btnMute.Background.Opacity = 0;
                 isMuted = false;
             } 
             else
@@ -234,6 +249,7 @@ namespace MP3_Player
                 slVolume.Value = 0;
                 volume = vol;
                 btnMute.Content = "Unmute";
+                btnMute.Background.Opacity = 100;
                 isMuted = true;
             }
         }
@@ -264,6 +280,42 @@ namespace MP3_Player
                 btnRandom.Background.Opacity = 100;
                 isRandom = true;
             }
+        }
+
+        private void lbPlaylist_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (lbPlaylist.SelectedItem != null)
+            {
+                playerStop();
+                loadFiles($"Music/{lbPlaylist.SelectedItem.ToString()}", "*.mp3");
+                activePlaylistIndex = lbPlaylist.SelectedIndex;
+            }
+        }
+
+        private void btnAddPlaylist_Click(object sender, RoutedEventArgs e)
+        {
+            AddPlaylistWindow addPlaylist = new AddPlaylistWindow();
+            addPlaylist.DataChanged += AddPlaylistWindow_DataChanged;
+            addPlaylist.Show();
+        }
+
+        private void btnDelPlaylist_Click(object sender, RoutedEventArgs e)
+        {
+            if (System.Windows.Forms.MessageBox.Show("Are you sure?", $"Delete {lbPlaylist.SelectedItem.ToString()}", System.Windows.Forms.MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
+            {
+                if (lbPlaylist.SelectedIndex == activePlaylistIndex)
+                {
+                    playerStop();
+                    lbList.Items.Clear();
+                }
+                Directory.Delete($"Music/{lbPlaylist.SelectedItem.ToString()}");
+                LoadPlaylists("Music/");
+            }
+        }
+
+        private void AddPlaylistWindow_DataChanged(object sender, EventArgs e)
+        {
+            LoadPlaylists("Music/");
         }
     }
 

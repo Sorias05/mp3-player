@@ -21,3 +21,5 @@ D:\Studying\Step\Semester 3\WPF\MP3 Player\MP3 Player\obj\Debug\net7.0-windows\M
 D:\Studying\Step\Semester 3\WPF\MP3 Player\MP3 Player\obj\Debug\net7.0-windows\ref\MP3 Player.dll
 D:\Studying\Step\Semester 3\WPF\MP3 Player\MP3 Player\obj\Debug\net7.0-windows\Interop.WMPLib.dll
 D:\Studying\Step\Semester 3\WPF\MP3 Player\MP3 Player\obj\Debug\net7.0-windows\MP3 Player.csproj.ResolveComReference.cache
+D:\Studying\Step\Semester 3\WPF\MP3 Player\MP3 Player\obj\Debug\net7.0-windows\AddPlaylistWindow.g.cs
+D:\Studying\Step\Semester 3\WPF\MP3 Player\MP3 Player\obj\Debug\net7.0-windows\AddPlaylistWindow.baml
