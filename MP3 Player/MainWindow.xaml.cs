@@ -42,8 +42,8 @@ namespace MP3_Player
         Random rand = new Random();
         int volume = 0;
         double position = 0;
-        int activeSongIndex = 0;
-        int activePlaylistIndex = 0;
+        int activeSongIndex = -1;
+        int activePlaylistIndex = -1;
 
         public MainWindow()
         {
@@ -53,6 +53,9 @@ namespace MP3_Player
             btnRandom.Background.Opacity = 0;
             btnRepeat.Background.Opacity = 0;
             btnMute.Background.Opacity = 0;
+
+            //lbList.Drop += lbList_Drop;
+            lbList.DragEnter += lbList_DragEnter;
         }
 
         public void loadFiles(string folder, string fileType)
@@ -317,6 +320,29 @@ namespace MP3_Player
         {
             LoadPlaylists("Music/");
         }
-    }
 
+        private void lbList_DragEnter(object sender, System.Windows.DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(System.Windows.DataFormats.FileDrop)) e.Effects = System.Windows.DragDropEffects.Copy;
+        }
+
+        private void lbList_Drop(object sender, System.Windows.DragEventArgs e)
+        {
+            if (activePlaylistIndex != -1)
+            {
+                string[] files = (string[])e.Data.GetData(System.Windows.DataFormats.FileDrop);
+                foreach (string file in files)
+                {
+                    if (System.IO.Path.GetExtension(file).ToLower() == ".mp3")
+                    {
+                        string source = System.IO.Path.GetFileName(file);
+                        string filePath = file;
+                        string destFile = System.IO.Path.Combine($"Music/{lbPlaylist.SelectedItem.ToString()}", source);
+                        System.IO.File.Copy(filePath, destFile, true);
+                        lbList.Items.Add(source);
+                    }
+                }
+            }
+        }
+    }
 }

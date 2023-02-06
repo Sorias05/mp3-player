@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Player" Height="450" Width="800" MinHeight="450" MinWidth="800" MaxHeight="450" MaxWidth="800">
     <Grid Background="#FF323232">
-        <ListBox x:Name="lbList" d:ItemsSource="{d:SampleData ItemCount=3}" Margin="215,30,10,106" Background="#FF191919" Foreground="White" MouseDoubleClick="lbList_MouseDoubleClick"/>
+        <ListBox x:Name="lbList" d:ItemsSource="{d:SampleData ItemCount=3}" Margin="215,30,10,106" Background="#FF191919" Foreground="White" AllowDrop="True" MouseDoubleClick="lbList_MouseDoubleClick" DragEnter="lbList_DragEnter" Drop="lbList_Drop"/>
         <ListBox x:Name="lbPlaylist" d:ItemsSource="{d:SampleData ItemCount=3}" Margin="10,30,590,106" Background="#FF191919" Foreground="White" MouseDoubleClick="lbPlaylist_MouseDoubleClick"/>
         <StackPanel Margin="0,333,0,0" Background="#FF323232">
             <Grid Height="21">
