@@ -97,7 +97,10 @@ namespace MP3_Player
 
         private void btnPlay_Click(object sender, RoutedEventArgs e)
         {
-            playerPlay();
+            if(lbList.SelectedItem != null)
+            {
+                playerPlay();
+            }
         }
 
         private void playerPlay()
@@ -219,29 +222,35 @@ namespace MP3_Player
 
         private void btnNext_Click(object sender, RoutedEventArgs e)
         {
-            playerStop();
-            if (isRandom)
+            if (lbList.SelectedItem != null)
             {
-                int random = -1;
-                while (lbList.SelectedIndex == random)
-                    random = rand.Next(lbList.Items.Count);
-                lbList.SelectedIndex = rand.Next(lbList.Items.Count);
+                playerStop();
+                if (isRandom)
+                {
+                    int random = -1;
+                    while (lbList.SelectedIndex == random)
+                        random = rand.Next(lbList.Items.Count);
+                    lbList.SelectedIndex = rand.Next(lbList.Items.Count);
+                }
+                else if (lbList.SelectedIndex < lbList.Items.Count - 1)
+                    lbList.SelectedIndex = lbList.SelectedIndex + 1;
+                else if (isRepeating)
+                    lbList.SelectedIndex = 0;
+                playerPlay();
             }
-            else if (lbList.SelectedIndex < lbList.Items.Count - 1)
-                lbList.SelectedIndex = lbList.SelectedIndex + 1;
-            else if (isRepeating)
-                lbList.SelectedIndex = 0;
-            playerPlay();
         }
 
         private void btnPrev_Click(object sender, RoutedEventArgs e)
         {
-            playerStop();
-            if (isRandom)
-                lbList.SelectedIndex = activeSongIndex;
-            else if (lbList.SelectedIndex > 0)
-                lbList.SelectedIndex = lbList.SelectedIndex - 1;
-            playerPlay();
+            if (lbList.SelectedItem != null)
+            {
+                playerStop();
+                if (isRandom)
+                    lbList.SelectedIndex = activeSongIndex;
+                else if (lbList.SelectedIndex > 0)
+                    lbList.SelectedIndex = lbList.SelectedIndex - 1;
+                playerPlay();
+            }    
         }
 
         private void btnMute_Click(object sender, RoutedEventArgs e)
