@@ -7,11 +7,11 @@
         mc:Ignorable="d"
         Title="Player" Height="450" Width="800" MinHeight="450" MinWidth="800" MaxHeight="450" MaxWidth="800">
     <Grid Background="#FF323232">
-        <ListBox x:Name="lbList" d:ItemsSource="{d:SampleData ItemCount=3}" Margin="215,30,10,106" Background="#FF191919" Foreground="White" AllowDrop="True" MouseDoubleClick="lbList_MouseDoubleClick" DragEnter="lbList_DragEnter" Drop="lbList_Drop"/>
-        <ListBox x:Name="lbPlaylist" d:ItemsSource="{d:SampleData ItemCount=3}" Margin="10,30,590,106" Background="#FF191919" Foreground="White" MouseDoubleClick="lbPlaylist_MouseDoubleClick"/>
+        <ListBox x:Name="lbList" d:ItemsSource="{d:SampleData ItemCount=3}" Margin="215,51,10,106" Background="#FF191919" Foreground="White" AllowDrop="True" MouseDoubleClick="lbList_MouseDoubleClick" DragEnter="lbList_DragEnter" Drop="lbList_Drop"/>
+        <ListBox x:Name="lbPlaylist" d:ItemsSource="{d:SampleData ItemCount=3}" Margin="10,51,590,106" Background="#FF191919" Foreground="White" MouseDoubleClick="lbPlaylist_MouseDoubleClick"/>
         <StackPanel Margin="0,333,0,0" Background="#FF323232">
             <Grid Height="21">
-                <Slider x:Name="slTime" Margin="60,2,60,0" Thumb.DragCompleted="slTime_DragCompleted" Thumb.DragStarted="slTime_DragStarted" />
+                <Slider x:Name="slTime" Margin="60,2,60,0" Thumb.DragCompleted="slTime_DragCompleted" Thumb.DragStarted="slTime_DragStarted" IsMoveToPointEnabled="True" MouseDown="slTime_MouseDown" MouseUp="slTime_MouseUp"/>
                 <Label x:Name="lblTime" Content="00:00" HorizontalAlignment="Left" Margin="21,0,0,0" VerticalAlignment="Center" Foreground="White" FontSize="10"/>
                 <Label x:Name="lblMaxTime" Content="00:00" Margin="745,0,0,0" VerticalAlignment="Center" Foreground="White" FontSize="10" HorizontalAlignment="Left" Width="34"/>
             </Grid>
@@ -31,11 +31,12 @@
             </Grid>
         </StackPanel>
         <Menu Background="#FF323232" VerticalAlignment="Top">
-            <Button x:Name="btnAddPlaylist" Background="{x:Null}" Content="Add Playlist" Foreground="White" FontWeight="Bold" FontSize="14" Click="btnAddPlaylist_Click"/>
-            <Button x:Name="btnDelPlaylist" Background="{x:Null}" Content="Delete Playlist" Foreground="White" FontWeight="Bold" FontSize="14" Click="btnDelPlaylist_Click"/>
-            <Button x:Name="btnAddFile" Background="{x:Null}" Content="Add File" Foreground="White" FontWeight="Bold" FontSize="14" Click="btnAddFile_Click"/>
-            <Button x:Name="btnDelFile" Background="{x:Null}" Content="Delete File" Foreground="White" FontWeight="Bold" FontSize="14" Click="btnDelFile_Click"/>
+            <Button x:Name="btnAddPlaylist" Background="{x:Null}" Content="Add Playlist" Foreground="White" FontWeight="Bold" FontSize="14" Click="btnAddPlaylist_Click" Width="100" Height="23"/>
+            <Button x:Name="btnDelPlaylist" Background="{x:Null}" Content="Delete Playlist" Foreground="White" FontWeight="Bold" FontSize="14" Click="btnDelPlaylist_Click" Width="100" Height="23"/>
+            <Button x:Name="btnAddFile" Background="{x:Null}" Content="Add File" Foreground="White" FontWeight="Bold" FontSize="14" Click="btnAddFile_Click" Width="100" Height="23"/>
+            <Button x:Name="btnDelFile" Background="{x:Null}" Content="Delete File" Foreground="White" FontWeight="Bold" FontSize="14" Click="btnDelFile_Click" Width="100" Height="23"/>
         </Menu>
-
+        <Label Content="Playlists" HorizontalAlignment="Left" Margin="10,25,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
+        <Label Content="Files" HorizontalAlignment="Left" Margin="215,25,0,0" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
     </Grid>
 </Window>

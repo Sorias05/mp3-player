@@ -136,11 +136,12 @@ namespace MP3_Player
         private void playerStop()
         {
             player.controls.stop();
+            ticks.Stop();
             isPlaying = false;
             position = 0;
             slTime.Value = 0;
             lblTime.Content = "00:00";
-            ticks.Stop();
+            lblMaxTime.Content = "00:00";
             btnPlay.Content = "Play";
         }
 
@@ -201,6 +202,7 @@ namespace MP3_Player
 
         private void slTime_DragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)
         {
+            isPlaying = true;
             playerPlay();
         }
 
@@ -359,6 +361,19 @@ namespace MP3_Player
                     }
                 }
             }
+        }
+
+        private void slTime_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            ticks.Stop();
+            player.controls.pause();
+        }
+
+        private void slTime_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            position = slTime.Value;
+            isPlaying = false;
+            playerPlay();
         }
     }
 }

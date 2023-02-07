@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MP3_Player"
         mc:Ignorable="d"
-        Title="AddPlaylistWindow" Height="120" Width="200">
+        Title="AddPlaylistWindow" Height="120" Width="200" MinHeight="120" MinWidth="200" MaxHeight="120" MaxWidth="200">
     <Grid Background="#FF323232">
         <Button x:Name="btnOk" Content="Ok" HorizontalAlignment="Left" Margin="10,54,0,0" VerticalAlignment="Top" Height="20" Width="85" Background="{x:Null}" Foreground="White" FontWeight="Bold" Click="btnOk_Click"/>
         <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="100,54,0,0" VerticalAlignment="Top" Height="20" Width="90" Background="{x:Null}" Foreground="White" FontWeight="Bold" Click="btnCancel_Click"/>
