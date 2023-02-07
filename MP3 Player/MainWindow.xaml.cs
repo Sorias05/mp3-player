@@ -65,6 +65,7 @@ namespace MP3_Player
             lbList.Items.Clear();
             foreach (FileInfo file in Files)
                 lbList.Items.Add(file.Name);
+            activeSongIndex = -1;
         }
 
         private void LoadPlaylists(string info)
@@ -74,6 +75,7 @@ namespace MP3_Player
             lbPlaylist.Items.Clear();
             foreach (DirectoryInfo dri in diArr)
                 lbPlaylist.Items.Add(dri.Name);
+            activePlaylistIndex = -1;
         }
 
         private void btnAddFile_Click(object sender, RoutedEventArgs e)
@@ -105,10 +107,8 @@ namespace MP3_Player
                 player.URL = $"Music/{lbPlaylist.SelectedItem.ToString()}/{lbList.SelectedItem.ToString()}";
                 player.settings.volume = (int)slVolume.Value;
                 player.controls.play();
-                slTime.Maximum = player.currentMedia.duration;
-                lblMaxTime.Content = player.currentMedia.durationString;
                 player.controls.currentPosition = position;
-                
+
                 activeSongIndex = lbList.SelectedIndex;
                 btnPlay.Content = "Pause";
                 isPlaying = true;
@@ -152,12 +152,15 @@ namespace MP3_Player
 
         private void btnDelFile_Click(object sender, RoutedEventArgs e)
         {
-            if (System.Windows.Forms.MessageBox.Show("Are you sure?", $"Delete {lbList.SelectedItem.ToString()}", System.Windows.Forms.MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
+            if(lbList.SelectedItem != null)
             {
-                if (player.URL == $"Music/{lbPlaylist.SelectedItem.ToString()}/{lbList.SelectedItem.ToString()}")
-                    playerStop();
-                System.IO.File.Delete($"Music/{lbPlaylist.SelectedItem.ToString()}/{lbList.SelectedItem.ToString()}");
-                lbList.Items.Remove(lbList.SelectedItem);
+                if (System.Windows.Forms.MessageBox.Show("Are you sure?", $"Delete {lbList.SelectedItem.ToString()}", System.Windows.Forms.MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
+                {
+                    if (lbList.SelectedIndex == activeSongIndex)
+                        playerStop();
+                    System.IO.File.Delete($"Music/{lbPlaylist.SelectedItem.ToString()}/{lbList.SelectedItem.ToString()}");
+                    lbList.Items.Remove(lbList.SelectedItem);
+                }
             }
         }
 
@@ -165,6 +168,8 @@ namespace MP3_Player
         {
             slTime.Value = player.controls.currentPosition;
             lblTime.Content = player.controls.currentPositionString;
+            slTime.Maximum = player.currentMedia.duration;
+            lblMaxTime.Content = player.currentMedia.durationString;
             if (player.controls.currentPosition >= player.currentMedia.duration - 0.5)
             {
                 playerStop();
@@ -292,6 +297,8 @@ namespace MP3_Player
                 playerStop();
                 loadFiles($"Music/{lbPlaylist.SelectedItem.ToString()}", "*.mp3");
                 activePlaylistIndex = lbPlaylist.SelectedIndex;
+                activeSongIndex = -1;
+                lblMaxTime.Content = "00:00";
             }
         }
 
@@ -304,15 +311,24 @@ namespace MP3_Player
 
         private void btnDelPlaylist_Click(object sender, RoutedEventArgs e)
         {
-            if (System.Windows.Forms.MessageBox.Show("Are you sure?", $"Delete {lbPlaylist.SelectedItem.ToString()}", System.Windows.Forms.MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
+            if(lbPlaylist.SelectedItem != null)
             {
-                if (lbPlaylist.SelectedIndex == activePlaylistIndex)
+                if (System.Windows.Forms.MessageBox.Show("Are you sure?", $"Delete {lbPlaylist.SelectedItem.ToString()}", System.Windows.Forms.MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
                 {
-                    playerStop();
-                    lbList.Items.Clear();
+                    System.IO.DirectoryInfo di = new DirectoryInfo($"Music/{lbPlaylist.SelectedItem.ToString()}");
+                    foreach (FileInfo file in di.GetFiles())
+                        file.Delete();
+                    foreach (DirectoryInfo dir in di.GetDirectories())
+                        dir.Delete(true);
+                    if (lbPlaylist.SelectedIndex == activePlaylistIndex)
+                    {
+                        playerStop();
+                        lbList.Items.Clear();
+                    }
+
+                    Directory.Delete($"Music/{lbPlaylist.SelectedItem.ToString()}", false);
+                    LoadPlaylists("Music/");
                 }
-                Directory.Delete($"Music/{lbPlaylist.SelectedItem.ToString()}");
-                LoadPlaylists("Music/");
             }
         }
 
